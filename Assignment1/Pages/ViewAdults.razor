@@ -1,0 +1,161 @@
+﻿@page "/ViewAdults" 
+@using Models
+@inject FileContext FileContext
+
+<h3>View Adults</h3>
+<div class="d-flex flex-row">
+    <div class="p-2">
+        <p>
+
+            Filter by First Name: <input type="text" @oninput="@((arg) => FilterByName(arg))" style="width:50px"/>
+        </p>
+    </div>
+    <div class="p-2">
+        <p>
+
+
+            Filter by Age: <input type="text" @oninput="@((arg) => FilterByAge(arg))" style="width:50px"/>
+            
+        </p>
+    </div>
+    <div class="p-2">
+        <p>
+
+            Filter by User Sex:
+            <select class="custom-select-sm" selectpicker @onchange="@((arg) => FilterBySex(arg))"style="width: 60px">
+                <option>Both</option>
+                <option>M</option>
+                <option>F</option>
+
+            </select>
+
+        </p>
+    </div>
+
+
+</div>
+
+
+@if (filtredAdults == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!filtredAdults.Any())
+{
+    <p>
+        <em>No adults found with this criteria</em>
+    </p>
+}
+else
+{
+    <div class="table-responsive-md">
+        <table class="table table-hover table-dark">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>HairColor</th>
+                <th>EyeColor</th>
+                <th>Age</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Sex</th>
+                <th>JobTitle</th>
+                <th>Salary</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var adult in filtredAdults)
+            {
+                <tr>
+                    <td>@adult.Id</td>
+                    <td>@adult.FirstName</td>
+                    <td>@adult.LastName</td>
+                    <td>@adult.HairColor</td>
+                    <td>@adult.EyeColor</td>
+                    <td>@adult.Age</td>
+                    <td>@adult.Weight</td>
+                    <td>@adult.Height</td>
+                    <td>@adult.Sex</td>
+                    <td>@adult.JobTitle.JobTitle</td>
+                    <td>@adult.JobTitle.Salary</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private string? filterByName = null;
+    private string? filterByAge = null;
+    private string? filterBySex = null;
+    private IList<Adult> Adults = new List<Adult>();
+    private IList<Adult> filtredAdults = new List<Adult>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (FileContext.Adults != null)
+        {
+            Adults = FileContext.Adults;
+            filtredAdults = Adults;
+        }
+        else
+        {
+            Console.WriteLine("null");
+        }
+    }
+
+
+    private void ExecuteFilter()
+    {
+        if (filtredAdults.Any())
+        {
+            Console.WriteLine(filterByName);
+            Console.WriteLine(filterBySex);
+            filtredAdults = Adults.Where(f => (filterByName != null && f.FirstName.Contains(filterByName) || filterByName == null) && (f.Sex.Equals(filterBySex) || filterBySex == null) && (filterByAge != null && f.Age.ToString().Contains(filterByAge) || filterByAge == null)).ToList();
+        }
+
+        else
+        {
+            filtredAdults = Adults;
+        }
+    }
+
+    private void FilterByName(ChangeEventArgs changeEventArgs)
+    {
+        filterByName = null;
+        filterByName = changeEventArgs.Value?.ToString();
+        ExecuteFilter();
+    }
+
+    private void FilterByAge(ChangeEventArgs changeEventArgs)
+    {
+        filterByAge = null;
+        try
+        {
+            filterByAge = changeEventArgs.Value?.ToString();
+        }
+        catch (Exception e)
+        {
+        }
+        ExecuteFilter();
+    }
+
+    private void FilterBySex(ChangeEventArgs changeEventArgs)
+    {
+        filterBySex = null;
+        filterBySex = changeEventArgs.Value?.ToString();
+        if (filterBySex.Equals("Both"))
+        {
+            filterBySex = null;
+        }
+        ExecuteFilter();
+    }
+
+}

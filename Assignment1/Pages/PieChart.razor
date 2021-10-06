@@ -1,0 +1,85 @@
+﻿@page "/PieChart"
+@inject FileContext FileContext
+@using ChartJs.Blazor.PieChart
+@using Models
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize(Policy = "Admin")];
+
+
+<h3> Pie Chart</h3>
+<AuthorizeView Policy="Admin">
+    <Chart Config="pieConfig"></Chart>
+</AuthorizeView>
+
+@code {
+    private PieConfig pieConfig;
+    private List<Adult> Adults = new List<Adult>();
+    private int young = 0;
+    private int semiMedium = 0;
+    private int medium = 0;
+    private int semiOld = 0;
+    private int old = 0;
+
+    protected override void OnInitialized()
+    {
+        ConfigurePieChart();
+    }
+
+    private void ConfigurePieChart()
+    {
+        pieConfig = new PieConfig();
+
+        pieConfig.Options = new PieOptions()
+        {
+            Responsive = true,
+            Title = new OptionsTitle
+            {
+                Display = true,
+                Text = "Pie Chart"
+            }
+        };
+
+        foreach (var adults in FileContext.Adults)
+        {
+            Adults.Add(adults);
+            if (adults.Age <= 18)
+            {
+                young++;
+            }
+            else if (adults.Age > 18 && adults.Age < 27)
+            {
+                semiMedium++;
+            }
+            else if (adults.Age > 27 && adults.Age < 35)
+            {
+                medium++;
+            }
+            else if (adults.Age > 35 && adults.Age < 50)
+            {
+                semiOld++;
+            }
+            else
+            {
+                old++;
+            }
+        }
+
+        foreach (var age in new[] {"Younger than 18 ", "Between 18-27 ", "Between 27-35 ", "Between 35-50 ", "50+ "})
+        {
+            pieConfig.Data.Labels.Add(age);
+        }
+        var dataset = new PieDataset<int>(new[] {young, semiMedium, medium, semiOld, old})
+        {
+            BackgroundColor = new[]
+            {
+                ColorUtil.ColorHexString(255, 0, 0),
+                ColorUtil.ColorHexString(0, 255, 0),
+                ColorUtil.ColorHexString(0, 0, 255),
+                ColorUtil.ColorHexString(100, 150, 8),
+                ColorUtil.ColorHexString(73, 50, 28)
+            }
+        };
+        pieConfig.Data.Datasets.Add(dataset);
+    }
+
+}

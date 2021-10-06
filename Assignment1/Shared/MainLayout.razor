@@ -1,0 +1,41 @@
+
+@using LoginComponent
+@using Assignment1.Authentication
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider;
+<head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<div class="page">
+    <div class="sidebar">
+        <NavMenu/>
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <AuthorizeView>
+               <button  id="button-one" href="" @onclick="PerformLogout">
+                    Log out
+             </button>
+            </AuthorizeView>
+        </div>
+        
+        <div class="content px-4">
+      
+            @Body
+            <Login/>
+        </div>
+    </div>
+</div>
+
+@code
+{
+   
+    public async Task PerformLogout() {
+        try {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).LogOut();
+            NavigationManager.NavigateTo("/");
+        } catch (Exception e) { }
+    }
+}
+
+
