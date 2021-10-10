@@ -2,62 +2,105 @@
 @using Models
 @inject NavigationManager NavigationManager
 @inject FileContext FileContext;
-<h3>Add Adult</h3>
 
-<EditForm Model="@adult" OnValidSubmit="@AddNewAdult" >
+<EditForm Model="@adult" OnValidSubmit="@AddNewAdult">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
-    <div id="addAdult">
-    <div class="form-group">
-        First Name :<br/> <InputTextArea @bind-Value="adult.FirstName"/>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Add adult</h4>
+                </header>
+                <article class="card-body">
+                    
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <label>First Name :</label>
+                                <InputText class="form-control" @bind-Value="adult.FirstName"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name :</label>
+                                <InputText class="form-control" @bind-Value="adult.LastName"/>
+                            </div><!-- form-group end.// -->
+                        </div><!-- form-row end.// -->
+
+                        <div class="form-group">
+
+                            <label>Hair Color :</label>
+                            <InputSelect class="form-control" @bind-Value="adult.HairColor">
+                                <option id="option" selected="">Black</option>
+                                <option id="option">Blond</option>
+                                <option id="option">White</option>
+                                <option id="option">Brown</option>
+                                <option id="option">Leverpostej</option>
+                            </InputSelect>
+                        </div>
+                        <div class="form-group">
+                            <label>Eye Color :</label>
+                            <InputSelect class="form-control"  @bind-Value="adult.EyeColor">
+                                <option id="option">Grey</option>
+                                <option id="option">Blue</option>
+                                <option id="option">Amber</option>
+                                <option id="option" selected="">Brown</option>
+                                <option id="option">Green</option>
+                                <option id="option">Black</option>
+
+                            </InputSelect>
+                        </div>
+                        <div class="form-group">
+                            <label>Age :</label>
+                            <InputNumber class="form-control" @bind-Value="adult.Age"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Weight :</label>
+                            <InputNumber class="form-control" @bind-Value="adult.Weight"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Height :</label>
+                            <InputNumber class="form-control" @bind-Value="adult.Height"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Sex :</label>
+                            <InputSelect class="form-control"  @bind-Value="adult.Sex">
+                                <option id="option">M</option>
+                                <option id="option" selected="">F</option>
+                            </InputSelect>
+                        </div>
+                        <div class="form-group">
+                            <label>Job :</label>
+                            <InputText class="form-control" @bind-Value="@job"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Salary :</label>
+                            <InputNumber class="form-control" @bind-Value="@salary"/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit">Add Adult</button>
+                      </div>
+              
+                </article>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        Last Name :<br/> <InputTextArea @bind-Value="adult.LastName"/>
-    </div>
-    <div class="form-group">
-        Hair Color :<br/> <InputTextArea @bind-Value="adult.HairColor"/>
-    </div>
-    <div class="form-group">
-        Eye Color :<br/> <InputTextArea @bind-Value="adult.EyeColor" />
-    </div>
-    <div class="form-group">
-        Age :<br/> <InputNumber @bind-Value="adult.Age"/>
-    </div>
-    <div class="form-group">
-        Weight :<br/> <InputNumber @bind-Value="adult.Weight"/>
-    </div>
-    <div class="form-group">
-        Height: <br/><InputNumber @bind-Value="adult.Height"/>
-    </div>
-    <div class="form-group">
-        Sex :<br/> <InputTextArea @bind-Value="adult.Sex"/>
-    </div>
-    <div class="form-group">
-        Job : <br/><InputTextArea @bind-Value="@job"/>
-    </div>
-    <div class="form-group">
-        Salary : <br/><InputNumber @bind-Value="@salary"/>
-    </div>
-    <p class="actions">
-        <button class="btn btn-outline-danger " type="submit">Add Adult</button>
-    </p>
-    </div>
+
 </EditForm>
-@*https://codepen.io/juff03/pen/OXaXRG*@
+
 
 @code {
-    
-    private Adult adult=new Adult();
+
+    private Adult adult = new Adult();
     private Job job1 = new Job();
-    
+
     private string job;
     private int salary;
-    
+
 
     private void AddNewAdult()
     {
+        Console.WriteLine(1);
         var count = FileContext.Adults.Last().Id;
-
+        Console.WriteLine(adult.Sex +"        dsaasfafasfa");
 
         if (string.IsNullOrEmpty(job))
         {
@@ -71,24 +114,34 @@
             job1.Salary = salary;
         }
         adult.JobTitle = job1;
-        
-        
-       
+
 
         adult.Id = ++count;
-       
-     
+        if (String.IsNullOrEmpty(adult.Sex))
+        {
+            adult.Sex = "F";
+        }
+        if (String.IsNullOrEmpty(adult.EyeColor))
+        {
+            adult.Sex = "Brown";
+        }
+        if (String.IsNullOrEmpty(adult.HairColor))
+        {
+            adult.Sex = "Black";
+        }
+        
+
         FileContext.Adults.Add(adult);
         FileContext.SaveChanges();
-        
+
         Console.WriteLine(adult.ToString());
         Console.WriteLine("Added with success");
-        NavigationManager.NavigateTo("/ViewAdults");
+        NavigationManager.NavigateTo("ViewAdults");
         ClearFields();
     }
+
     private void ClearFields()
     {
-        
         job = "";
         salary = 0;
     }

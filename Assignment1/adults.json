@@ -227,31 +227,16 @@
   {
     "JobTitle": {
       "JobTitle": "Student",
-      "Salary": 20000
+      "Salary": 1000000
     },
     "Id": 15,
     "FirstName": "Dorin",
     "LastName": "Pascal",
-    "HairColor": "Black",
+    "HairColor": "Brown",
     "EyeColor": "Green",
     "Age": 20,
-    "Weight": 90,
+    "Weight": 88,
     "Height": 187,
-    "Sex": "M"
-  },
-  {
-    "JobTitle": {
-      "JobTitle": "Unemployed",
-      "Salary": 0
-    },
-    "Id": 16,
-    "FirstName": "John",
-    "LastName": "Wick",
-    "HairColor": "Brown",
-    "EyeColor": "Brown",
-    "Age": 23,
-    "Weight": 87,
-    "Height": 200,
     "Sex": "M"
   }
 ]

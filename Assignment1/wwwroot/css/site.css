@@ -108,13 +108,13 @@ th {
         width: 100%;
     }
 }
-#input
+/*#input
 {
     padding: 10px;
 
     margin: auto;
     
-}
+}*/
 #usernamediv,#passworddiv
 {
     padding: 10px;
@@ -163,11 +163,28 @@ th {
     transition: 0s
 }
 
-label {
+/*#loginlabel {
     color: #B4886B;
     font-weight: bold;
     font-size: 20px;
     display: block;
     margin: auto;
     width: 10%;
+}*/
+
+label{
+    color: #B4886B;
+    font-weight: bold;
+    font-size: 15px;
+    
+}
+#option{
+    color: #B4556B;
+    font-weight: bold;
+    font-size: 15px; 
+}
+h4 {
+    color: #B9886B;
+    font-weight: bold;
+    font-size: 25px;
 }

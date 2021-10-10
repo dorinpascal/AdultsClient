@@ -15,12 +15,12 @@
 
             <div style="color:red">@errorMessage</div>
 
-            <div id="usernamediv">
-                <label>Username:</label>
+            <div id="usernamediv" class="form-group">
+                <label id="loginlabel">Username:</label>
                 <input id="input"type="text" placeholder="Username" @bind-value="username"/>
             </div>
             <div id="passworddiv">
-                <label>Password: </label>
+                <label id="loginlabel">Password: </label>
                 <input id="input" type="password" placeholder="Password" @bind-value="password"/>
             </div>
 

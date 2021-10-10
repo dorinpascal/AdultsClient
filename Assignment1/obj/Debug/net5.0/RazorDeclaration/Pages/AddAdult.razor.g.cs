@@ -161,20 +161,21 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 48 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\AddAdult.razor"
+#line 90 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\AddAdult.razor"
        
-    
-    private Adult adult=new Adult();
+
+    private Adult adult = new Adult();
     private Job job1 = new Job();
-    
+
     private string job;
     private int salary;
-    
+
 
     private void AddNewAdult()
     {
+        Console.WriteLine(1);
         var count = FileContext.Adults.Last().Id;
-
+        Console.WriteLine(adult.Sex +"        dsaasfafasfa");
 
         if (string.IsNullOrEmpty(job))
         {
@@ -188,24 +189,34 @@ using Models;
             job1.Salary = salary;
         }
         adult.JobTitle = job1;
-        
-        
-       
+
 
         adult.Id = ++count;
-       
-     
+        if (String.IsNullOrEmpty(adult.Sex))
+        {
+            adult.Sex = "F";
+        }
+        if (String.IsNullOrEmpty(adult.EyeColor))
+        {
+            adult.Sex = "Brown";
+        }
+        if (String.IsNullOrEmpty(adult.HairColor))
+        {
+            adult.Sex = "Black";
+        }
+        
+
         FileContext.Adults.Add(adult);
         FileContext.SaveChanges();
-        
+
         Console.WriteLine(adult.ToString());
         Console.WriteLine("Added with success");
-        NavigationManager.NavigateTo("/ViewAdults");
+        NavigationManager.NavigateTo("ViewAdults");
         ClearFields();
     }
+
     private void ClearFields()
     {
-        
         job = "";
         salary = 0;
     }

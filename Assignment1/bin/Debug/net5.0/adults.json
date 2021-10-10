@@ -223,35 +223,5 @@
     "Weight": 81.8,
     "Height": 172,
     "Sex": "M"
-  },
-  {
-    "JobTitle": {
-      "JobTitle": "Student",
-      "Salary": 20000
-    },
-    "Id": 15,
-    "FirstName": "Dorin",
-    "LastName": "Pascal",
-    "HairColor": "Black",
-    "EyeColor": "Green",
-    "Age": 20,
-    "Weight": 90,
-    "Height": 187,
-    "Sex": "M"
-  },
-  {
-    "JobTitle": {
-      "JobTitle": "Unemployed",
-      "Salary": 0
-    },
-    "Id": 16,
-    "FirstName": "John",
-    "LastName": "Wick",
-    "HairColor": "Brown",
-    "EyeColor": "Brown",
-    "Age": 23,
-    "Weight": 87,
-    "Height": 200,
-    "Sex": "M"
   }
 ]

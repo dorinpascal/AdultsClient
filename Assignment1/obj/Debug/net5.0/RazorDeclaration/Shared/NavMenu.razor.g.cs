@@ -153,7 +153,7 @@ using ChartJs.Blazor.Interop;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Shared\NavMenu.razor"
+#line 38 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 
