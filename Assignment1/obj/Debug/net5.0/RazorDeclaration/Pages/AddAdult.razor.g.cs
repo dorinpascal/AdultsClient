@@ -152,6 +152,13 @@ using Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\AddAdult.razor"
+using Assignment1.Data;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/AddAdult")]
     public partial class AddAdult : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -161,7 +168,7 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 90 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\AddAdult.razor"
+#line 91 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\AddAdult.razor"
        
 
     private Adult adult = new Adult();
@@ -171,11 +178,11 @@ using Models;
     private int salary;
 
 
-    private void AddNewAdult()
+    private async Task AddNewAdult()
     {
-        Console.WriteLine(1);
-        var count = FileContext.Adults.Last().Id;
-        Console.WriteLine(adult.Sex +"        dsaasfafasfa");
+
+        var count = IAdult.GetAdultAsync().Result.Last().Id;
+     
 
         if (string.IsNullOrEmpty(job))
         {
@@ -204,10 +211,10 @@ using Models;
         {
             adult.Sex = "Black";
         }
-        
 
-        FileContext.Adults.Add(adult);
-        FileContext.SaveChanges();
+
+        await IAdult.AddAdultAsync(adult);
+       
 
         Console.WriteLine(adult.ToString());
         Console.WriteLine("Added with success");
@@ -225,7 +232,7 @@ using Models;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private FileContext FileContext { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAdult IAdult { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
     }
 }

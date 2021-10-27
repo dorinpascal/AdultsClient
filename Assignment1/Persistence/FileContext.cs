@@ -18,7 +18,6 @@ namespace Assignment1
         {
             Families = File.Exists(familiesFile) ? ReadData<Family>(familiesFile) : new List<Family>();
             Adults = File.Exists(adultsFile) ? ReadData<Adult>(adultsFile) : new List<Adult>();
-            
         }
 
         private IList<T> ReadData<T>(string s)

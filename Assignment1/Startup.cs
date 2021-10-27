@@ -33,8 +33,9 @@ namespace Assignment1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<IUser,InMemoryUser>();
+            services.AddScoped<IAdult,CloudAdultService>();
             services.AddScoped<AuthenticationStateProvider,CustomAuthenticationStateProvider>();
-            services.AddSingleton<FileContext>();
+            
          
             services.AddAuthorization(options => {
                 

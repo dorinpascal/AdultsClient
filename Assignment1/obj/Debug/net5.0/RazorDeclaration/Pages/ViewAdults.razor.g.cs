@@ -152,6 +152,13 @@ using Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\ViewAdults.razor"
+using Assignment1.Data;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/ViewAdults")]
     public partial class ViewAdults : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -161,7 +168,7 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 93 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\ViewAdults.razor"
+#line 94 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\ViewAdults.razor"
        
     private string? filterByName = null;
     private string? filterByAge = null;
@@ -170,12 +177,20 @@ using Models;
     private IList<Adult> filtredAdults = new List<Adult>();
 
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync() 
     {
-        if (FileContext.Adults != null)
+        if (IAdult != null )
         {
-            Adults = FileContext.Adults;
-            filtredAdults = Adults;
+            try
+            {
+                Adults = await IAdult.GetAdultAsync();
+                filtredAdults = Adults;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error");
+            }
+            
         }
         else
         {
@@ -234,7 +249,7 @@ using Models;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private FileContext FileContext { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAdult IAdult { get; set; }
     }
 }
 #pragma warning restore 1591

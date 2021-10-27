@@ -172,13 +172,14 @@ using Assignment1.Authentication;
         errorMessage = "";
         try
         {
-            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
+           await ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
             NavigationManager.NavigateTo("ViewAdults");
             username = "";
             password = "";
         }
         catch (Exception e)
         {
+            Console.WriteLine("Login Problem");
             errorMessage = e.Message;
         }
     }

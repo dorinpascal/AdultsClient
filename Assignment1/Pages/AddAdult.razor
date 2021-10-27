@@ -1,7 +1,8 @@
 ﻿@page "/AddAdult"
 @using Models
+@using Assignment1.Data
 @inject NavigationManager NavigationManager
-@inject FileContext FileContext;
+@inject IAdult IAdult;
 
 <EditForm Model="@adult" OnValidSubmit="@AddNewAdult">
     <DataAnnotationsValidator/>
@@ -96,11 +97,11 @@
     private int salary;
 
 
-    private void AddNewAdult()
+    private async Task AddNewAdult()
     {
-        Console.WriteLine(1);
-        var count = FileContext.Adults.Last().Id;
-        Console.WriteLine(adult.Sex +"        dsaasfafasfa");
+
+        var count = IAdult.GetAdultAsync().Result.Last().Id;
+     
 
         if (string.IsNullOrEmpty(job))
         {
@@ -129,10 +130,10 @@
         {
             adult.Sex = "Black";
         }
-        
 
-        FileContext.Adults.Add(adult);
-        FileContext.SaveChanges();
+
+        await IAdult.AddAdultAsync(adult);
+       
 
         Console.WriteLine(adult.ToString());
         Console.WriteLine("Added with success");

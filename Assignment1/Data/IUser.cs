@@ -1,9 +1,10 @@
-﻿using Models;
+﻿using System.Threading.Tasks;
+using Models;
 
 namespace Assignment1.Data
 {
     public interface IUser
     {
-        User ValidateUser(string userName, string Password);
+        Task<User> ValidateUser(string userName, string Password);
     }
 }

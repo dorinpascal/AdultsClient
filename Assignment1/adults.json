@@ -223,5 +223,20 @@
     "Weight": 81.8,
     "Height": 172,
     "Sex": "M"
+  },
+  {
+    "JobTitle": {
+      "JobTitle": "Unemployed",
+      "Salary": 0
+    },
+    "Id": 15,
+    "FirstName": "Dorin",
+    "LastName": "Pascal",
+    "HairColor": "Brown",
+    "EyeColor": "Green",
+    "Age": 20,
+    "Weight": 88,
+    "Height": 187,
+    "Sex": "M"
   }
 ]

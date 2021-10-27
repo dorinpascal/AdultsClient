@@ -59,7 +59,7 @@ namespace Assignment1.Authentication
         }
         
 
-        public void ValidateLogin(string tempUserName, string tempPassword)
+        public async Task ValidateLogin(string tempUserName, string tempPassword)
         {
             Console.WriteLine("Validating log in");
             if (string.IsNullOrEmpty(tempUserName)) throw new Exception("Enter username");
@@ -67,10 +67,11 @@ namespace Assignment1.Authentication
 
             ClaimsIdentity identity = new ClaimsIdentity();
             try {
-                User user = userService.ValidateUser(tempUserName, tempPassword);
+                Console.WriteLine(tempUserName+"lalalalallaa");
+                User user = await userService.ValidateUser(tempUserName, tempPassword);
                 identity = SetupClaimsForUser(user);
                 string serialisedData = JsonSerializer.Serialize(user);
-                jsRunTime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
+                await jsRunTime.InvokeVoidAsync("sessionStorage.setItem", "currentUser", serialisedData);
                 cachedUser = user;
                 Console.WriteLine(user.UserName);
             } catch (Exception e) {

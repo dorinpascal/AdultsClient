@@ -1,6 +1,7 @@
 ﻿@page "/ViewAdults" 
 @using Models
-@inject FileContext FileContext
+@using Assignment1.Data
+@inject IAdult IAdult;
 
 <h3>View Adults</h3>
 <div class="d-flex flex-row">
@@ -98,12 +99,20 @@ else
     private IList<Adult> filtredAdults = new List<Adult>();
 
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync() 
     {
-        if (FileContext.Adults != null)
+        if (IAdult != null )
         {
-            Adults = FileContext.Adults;
-            filtredAdults = Adults;
+            try
+            {
+                Adults = await IAdult.GetAdultAsync();
+                filtredAdults = Adults;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error");
+            }
+            
         }
         else
         {
