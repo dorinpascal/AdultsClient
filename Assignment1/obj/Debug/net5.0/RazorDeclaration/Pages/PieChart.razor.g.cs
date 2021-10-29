@@ -160,7 +160,14 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\PieChart.razor"
+#line 5 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\PieChart.razor"
+using Assignment1.Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\PieChart.razor"
            [Authorize(Policy = "Admin")]
 
 #line default
@@ -175,39 +182,42 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 14 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\PieChart.razor"
+#line 15 "C:\Users\User\RiderProjects\Assignment1\Assignment1\Pages\PieChart.razor"
        
     private PieConfig pieConfig;
-    private List<Adult> Adults = new List<Adult>();
+    private List<Adult> Adults;
     private int semiMedium = 0;
     private int medium = 0;
     private int semiOld = 0;
     private int old = 0;
+    private IList<Adult> temp = new List<Adult>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        ConfigurePieChart();
+        Adults = new List<Adult>();
+        await ConfigurePieChart();
     }
 
-    private void ConfigurePieChart()
+    private async Task ConfigurePieChart()
     {
-        pieConfig = new PieConfig();
-
-        pieConfig.Options = new PieOptions()
+        pieConfig = new PieConfig
         {
-            Responsive = true,
-            Title = new OptionsTitle
+            Options = new PieOptions()
             {
-                Display = true,
-                Text = "Pie Chart"
+                Responsive = true,
+                Title = new OptionsTitle
+                {
+                    Display = true,
+                    Text = "Pie Chart"
+                }
             }
         };
-
-        foreach (var adults in FileContext.Adults)
+        temp = await IAdult.GetAdultAsync();
+        foreach (var adults in  temp)
         {
-            Adults.Add(adults);
-           
-             if (adults.Age > 18 && adults.Age < 27)
+           Adults.Add(adults);
+
+            if (adults.Age > 18 && adults.Age < 27)
             {
                 semiMedium++;
             }
@@ -225,11 +235,12 @@ using Models;
             }
         }
 
-        foreach (var age in new[] { "Between 18-27 ", "Between 27-35 ", "Between 35-50 ", "50+ "})
+
+        foreach (var age in new[] {"Between 18-27 ", "Between 27-35 ", "Between 35-50 ", "50+ "})
         {
             pieConfig.Data.Labels.Add(age);
         }
-        var dataset = new PieDataset<int>(new[] { semiMedium, medium, semiOld, old})
+        var dataset = new PieDataset<int>(new[] {semiMedium, medium, semiOld, old})
         {
             BackgroundColor = new[]
             {
@@ -237,10 +248,9 @@ using Models;
                 ColorUtil.ColorHexString(0, 255, 0),
                 ColorUtil.ColorHexString(0, 0, 255),
                 ColorUtil.ColorHexString(100, 150, 8),
-               
             }
         };
-        pieConfig.Data.Datasets.Add(dataset);
+         pieConfig.Data.Datasets.Add(dataset);
     }
 
 
@@ -248,7 +258,7 @@ using Models;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private FileContext FileContext { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAdult IAdult { get; set; }
     }
 }
 #pragma warning restore 1591

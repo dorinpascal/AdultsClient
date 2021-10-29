@@ -67,7 +67,6 @@ namespace Assignment1.Authentication
 
             ClaimsIdentity identity = new ClaimsIdentity();
             try {
-                Console.WriteLine(tempUserName+"lalalalallaa");
                 User user = await userService.ValidateUser(tempUserName, tempPassword);
                 identity = SetupClaimsForUser(user);
                 string serialisedData = JsonSerializer.Serialize(user);

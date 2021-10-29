@@ -8,5 +8,7 @@ namespace Assignment1.Data
     {
         Task<IList<Adult>> GetAdultAsync();
         Task AddAdultAsync(Adult adult);
+
+        Task<int> getLastAdultId();
     }
 }

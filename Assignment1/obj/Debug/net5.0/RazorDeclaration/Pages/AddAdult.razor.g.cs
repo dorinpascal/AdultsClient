@@ -172,7 +172,7 @@ using Assignment1.Data;
        
 
     private Adult adult = new Adult();
-    private Job job1 = new Job();
+    private Job newJob = new Job();
 
     private string job;
     private int salary;
@@ -180,22 +180,22 @@ using Assignment1.Data;
 
     private async Task AddNewAdult()
     {
+        
 
-        var count = IAdult.GetAdultAsync().Result.Last().Id;
-     
+        int count = await IAdult.getLastAdultId();
 
         if (string.IsNullOrEmpty(job))
         {
             job = "Unemployed";
-            job1.JobTitle = job;
-            job1.Salary = salary;
+            newJob.JobTitle = job;
+            newJob.Salary = salary;
         }
         else
         {
-            job1.JobTitle = job;
-            job1.Salary = salary;
+            newJob.JobTitle = job;
+            newJob.Salary = salary;
         }
-        adult.JobTitle = job1;
+        adult.JobTitle = newJob;
 
 
         adult.Id = ++count;
@@ -205,16 +205,17 @@ using Assignment1.Data;
         }
         if (String.IsNullOrEmpty(adult.EyeColor))
         {
-            adult.Sex = "Brown";
+            adult.EyeColor = "Brown";
         }
         if (String.IsNullOrEmpty(adult.HairColor))
         {
-            adult.Sex = "Black";
+            adult.HairColor = "Black";
         }
 
 
-        await IAdult.AddAdultAsync(adult);
        
+        await IAdult.AddAdultAsync(adult);
+      
 
         Console.WriteLine(adult.ToString());
         Console.WriteLine("Added with success");

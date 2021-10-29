@@ -14,72 +14,72 @@
                     <h4 class="card-title mt-2">Add adult</h4>
                 </header>
                 <article class="card-body">
-                    
-                        <div class="form-row">
-                            <div class="col form-group">
-                                <label>First Name :</label>
-                                <InputText class="form-control" @bind-Value="adult.FirstName"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Last Name :</label>
-                                <InputText class="form-control" @bind-Value="adult.LastName"/>
-                            </div><!-- form-group end.// -->
-                        </div><!-- form-row end.// -->
 
-                        <div class="form-group">
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>First Name :</label>
+                            <InputText class="form-control" @bind-Value="adult.FirstName"/>
+                        </div>
+                        <div class="col form-group">
+                            <label>Last Name :</label>
+                            <InputText class="form-control" @bind-Value="adult.LastName"/>
+                        </div><!-- form-group end.// -->
+                    </div><!-- form-row end.// -->
 
-                            <label>Hair Color :</label>
-                            <InputSelect class="form-control" @bind-Value="adult.HairColor">
-                                <option id="option" selected="">Black</option>
-                                <option id="option">Blond</option>
-                                <option id="option">White</option>
-                                <option id="option">Brown</option>
-                                <option id="option">Leverpostej</option>
-                            </InputSelect>
-                        </div>
-                        <div class="form-group">
-                            <label>Eye Color :</label>
-                            <InputSelect class="form-control"  @bind-Value="adult.EyeColor">
-                                <option id="option">Grey</option>
-                                <option id="option">Blue</option>
-                                <option id="option">Amber</option>
-                                <option id="option" selected="">Brown</option>
-                                <option id="option">Green</option>
-                                <option id="option">Black</option>
+                    <div class="form-group">
 
-                            </InputSelect>
-                        </div>
-                        <div class="form-group">
-                            <label>Age :</label>
-                            <InputNumber class="form-control" @bind-Value="adult.Age"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Weight :</label>
-                            <InputNumber class="form-control" @bind-Value="adult.Weight"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Height :</label>
-                            <InputNumber class="form-control" @bind-Value="adult.Height"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Sex :</label>
-                            <InputSelect class="form-control"  @bind-Value="adult.Sex">
-                                <option id="option">M</option>
-                                <option id="option" selected="">F</option>
-                            </InputSelect>
-                        </div>
-                        <div class="form-group">
-                            <label>Job :</label>
-                            <InputText class="form-control" @bind-Value="@job"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Salary :</label>
-                            <InputNumber class="form-control" @bind-Value="@salary"/>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" type="submit">Add Adult</button>
-                      </div>
-              
+                        <label>Hair Color :</label>
+                        <InputSelect class="form-control" @bind-Value="adult.HairColor">
+                            <option id="option" selected="">Black</option>
+                            <option id="option">Blond</option>
+                            <option id="option">White</option>
+                            <option id="option">Brown</option>
+                            <option id="option">Leverpostej</option>
+                        </InputSelect>
+                    </div>
+                    <div class="form-group">
+                        <label>Eye Color :</label>
+                        <InputSelect class="form-control" @bind-Value="adult.EyeColor">
+                            <option id="option">Grey</option>
+                            <option id="option">Blue</option>
+                            <option id="option">Amber</option>
+                            <option id="option" selected="">Brown</option>
+                            <option id="option">Green</option>
+                            <option id="option">Black</option>
+
+                        </InputSelect>
+                    </div>
+                    <div class="form-group">
+                        <label>Age :</label>
+                        <InputNumber class="form-control" @bind-Value="adult.Age"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Weight :</label>
+                        <InputNumber class="form-control" @bind-Value="adult.Weight"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Height :</label>
+                        <InputNumber class="form-control" @bind-Value="adult.Height"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Sex :</label>
+                        <InputSelect class="form-control" @bind-Value="adult.Sex">
+                            <option id="option">M</option>
+                            <option id="option" selected="">F</option>
+                        </InputSelect>
+                    </div>
+                    <div class="form-group">
+                        <label>Job :</label>
+                        <InputText class="form-control" @bind-Value="@job"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Salary :</label>
+                        <InputNumber class="form-control" @bind-Value="@salary"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">Add Adult</button>
+                    </div>
+
                 </article>
             </div>
         </div>
@@ -91,7 +91,7 @@
 @code {
 
     private Adult adult = new Adult();
-    private Job job1 = new Job();
+    private Job newJob = new Job();
 
     private string job;
     private int salary;
@@ -99,22 +99,20 @@
 
     private async Task AddNewAdult()
     {
-
-        var count = IAdult.GetAdultAsync().Result.Last().Id;
-     
+        int count = await IAdult.getLastAdultId();
 
         if (string.IsNullOrEmpty(job))
         {
             job = "Unemployed";
-            job1.JobTitle = job;
-            job1.Salary = salary;
+            newJob.JobTitle = job;
+            newJob.Salary = salary;
         }
         else
         {
-            job1.JobTitle = job;
-            job1.Salary = salary;
+            newJob.JobTitle = job;
+            newJob.Salary = salary;
         }
-        adult.JobTitle = job1;
+        adult.JobTitle = newJob;
 
 
         adult.Id = ++count;
@@ -124,19 +122,16 @@
         }
         if (String.IsNullOrEmpty(adult.EyeColor))
         {
-            adult.Sex = "Brown";
+            adult.EyeColor = "Brown";
         }
         if (String.IsNullOrEmpty(adult.HairColor))
         {
-            adult.Sex = "Black";
+            adult.HairColor = "Black";
         }
 
 
         await IAdult.AddAdultAsync(adult);
-       
 
-        Console.WriteLine(adult.ToString());
-        Console.WriteLine("Added with success");
         NavigationManager.NavigateTo("ViewAdults");
         ClearFields();
     }

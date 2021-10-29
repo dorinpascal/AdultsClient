@@ -20,9 +20,7 @@ namespace Assignment1.Data
 
         public async Task<IList<Adult>> GetAdultAsync()
         {
-            Console.WriteLine("aleo bleadi" +"");
             HttpResponseMessage response = await client.GetAsync(uri + "/Adults");
-            Console.WriteLine("aleo 2");
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Huston Problem");
@@ -30,6 +28,7 @@ namespace Assignment1.Data
 
             string message = await response.Content.ReadAsStringAsync();
             List<Adult> result = JsonSerializer.Deserialize<List<Adult>>(message);
+
             return result;
         }
 
@@ -39,11 +38,25 @@ namespace Assignment1.Data
             HttpContent content = new StringContent(adultAsJson,
                 Encoding.UTF8,
                 "application/json");
-            HttpResponseMessage responseMessage = await client.PostAsync(uri + "/adult", content);
+            HttpResponseMessage responseMessage = await client.PostAsync(uri + "/Adults", content);
             if (!responseMessage.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Huston Problem lalalala");
+            }
+        }
+
+        public async Task<int> getLastAdultId()
+        {
+            HttpResponseMessage response = await client.GetAsync(uri + "/Adults");
+            if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Huston Problem");
             }
+
+            string message = await response.Content.ReadAsStringAsync();
+            List<Adult> result = JsonSerializer.Deserialize<List<Adult>>(message);
+
+            return result.Count;
         }
     }
 }
