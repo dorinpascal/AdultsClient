@@ -35,7 +35,6 @@ namespace Assignment1.Authentication
                 if (!string.IsNullOrEmpty(userAsJson))
                 {
                     User temp = JsonSerializer.Deserialize<User>(userAsJson);
-                    Console.WriteLine(temp.UserName);
                     ValidateLogin(temp.UserName, temp.Password);
                 }
             }
