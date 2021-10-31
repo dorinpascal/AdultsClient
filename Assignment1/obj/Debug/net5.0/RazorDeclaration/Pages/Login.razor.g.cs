@@ -179,7 +179,6 @@ using Assignment1.Authentication;
         }
         catch (Exception e)
         {
-            Console.WriteLine("Login Problem");
             errorMessage = e.Message.Contains('U') ? "UserName not found" : "Incorrect Password";
         }
     }

@@ -180,8 +180,6 @@ using Assignment1.Data;
 
     private async Task AddNewAdult()
     {
-        
-
         int count = await IAdult.getLastAdultId();
 
         if (string.IsNullOrEmpty(job))
@@ -213,12 +211,8 @@ using Assignment1.Data;
         }
 
 
-       
         await IAdult.AddAdultAsync(adult);
-      
 
-        Console.WriteLine(adult.ToString());
-        Console.WriteLine("Added with success");
         NavigationManager.NavigateTo("ViewAdults");
         ClearFields();
     }
