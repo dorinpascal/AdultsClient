@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
     public class Job
-    
-    { 
-        public string JobTitle { get; set; }
-        public int Salary { get; set; }
+
+    {
+        [JsonPropertyName("JobTitle")] public string JobTitle { get; set; }
+        [JsonPropertyName("Salary")] public int Salary { get; set; }
     }
 }
